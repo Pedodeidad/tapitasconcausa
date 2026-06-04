@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tapitas con Causa | Inicio</title>
+    <style>
+        /* ==========================================================================
+           VARIABLES Y CONFIGURACIÓN GLOBAL (Paleta Arcoíris Equilibrada)
+           ========================================================================== */
+        :root {
+            --rainbow-red: #ff5964;       /* Rojo vibrante */
+            --rainbow-orange: #f7a072;    /* Naranja suave */
+            --rainbow-yellow: #f5cbd8;    /* Amarillo/Pastel de contraste */
+            --rainbow-green: #38b000;     /* Verde ecológico */
+            --rainbow-blue: #00b4d8;      /* Azul solidaridad */
+            --rainbow-purple: #7209b7;    /* Morado causa */
+            --pure-white: #ffffff;
+            --bg-light: #f8f9fa;          /* Fondo gris muy claro */
+            --text-dark: #212529;         /* Texto oscuro principal */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--pure-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 90px;
+        }
+
+        /* ==========================================================================
+           BARRA DE NAVEGACIÓN SUPERIOR (FIJA)
+           ========================================================================== */
+        .navbar {
+            width: 100%;
+            height: 90px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--pure-white);
+            border-bottom: 3px solid var(--bg-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--rainbow-red), var(--rainbow-orange), var(--rainbow-blue), var(--rainbow-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #6c757d;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        /* Colores individuales del arcoíris al pasar el cursor (Hover) */
+        .nav-1:hover, .nav-1.active { color: var(--pure-white) !important; background-color: var(--rainbow-red); }
+        .nav-2:hover { color: var(--pure-white) !important; background-color: var(--rainbow-orange); }
+        .nav-3:hover { color: var(--pure-white) !important; background-color: var(--rainbow-green); }
+        .nav-4:hover { color: var(--pure-white) !important; background-color: var(--rainbow-blue); }
+
+        /* ==========================================================================
+           SECCIÓN HERO (ENCABEZADO PRINCIPAL)
+           ========================================================================== */
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('banner.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 100px 20px;
+            text-align: center;
+            color: var(--pure-white);
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--rainbow-orange);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           CONTENEDOR PRINCIPAL Y NUESTRA HISTORIA
+           ========================================================================== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .main-block {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .tag {
+            color: var(--rainbow-blue);
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .main-block h2 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            font-family: 'Georgia', serif;
+        }
+
+        .description-text {
+            font-size: 1.15rem;
+            color: #495057;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* ==========================================================================
+           TARJETAS DE TRIPLE IMPACTO (COLORES ARCOÍRIS)
+           ========================================================================== */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .impact-card {
+            background-color: var(--pure-white);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            text-align: left;
+            transition: transform 0.3s ease;
+            border-top: 5px solid transparent;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Asignación de colores del arcoíris a cada tarjeta */
+        .card-ambient { border-top-color: var(--rainbow-green); }
+        .card-social { border-top-color: var(--rainbow-red); }
+        .card-edu { border-top-color: var(--rainbow-purple); }
+
+        .impact-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-family: 'Georgia', serif;
+        }
+        
+        .card-ambient h3 { color: var(--rainbow-green); }
+        .card-social h3 { color: var(--rainbow-red); }
+        .card-edu h3 { color: var(--rainbow-purple); }
+
+        .impact-card p {
+            font-size: 1rem;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           BLOQUE MISION, VISIÓN Y OBJETIVOS
+           ========================================================================== */
+        .identity-section {
+            background-color: var(--bg-light);
+            padding: 60px 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .identity-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .identity-box {
+            background: var(--pure-white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .identity-box h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+        }
+
+        .box-mision h4 { color: var(--rainbow-blue); border-bottom: 2px solid var(--rainbow-blue); padding-bottom: 5px; }
+        .box-vision h4 { color: var(--rainbow-orange); border-bottom: 2px solid var(--rainbow-orange); padding-bottom: 5px; }
+        .box-objetivos h4 { color: var(--rainbow-purple); border-bottom: 2px solid var(--rainbow-purple); padding-bottom: 5px; }
+
+        .identity-box p, .identity-box ul {
+            font-size: 1rem;
+            color: #495057;
+            margin-top: 10px;
+        }
+
+        .identity-box ul {
+            list-style-position: inside;
+            list-style-type: square;
+        }
+
+        .identity-box li {
+            margin-bottom: 8px;
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        .main-footer {
+            background-color: #212529;
+            color: var(--pure-white);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR (FIJA) -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-area">
+                🌈 Tapitas con Causa
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <!-- Nombres cortos y claros para las 4 secciones -->
+                    <li><a href="index.html" class="nav-1 active">Nosotros</a></li>
+                    <li><a href="foda.html" class="nav-2">FODA</a></li>
+                    <li><a href="donaciones.html" class="nav-3">Donaciones</a></li>
+                    <li><a href="organigrama.html" class="nav-4">Organigrama</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- SECCIÓN HERO -->
+    <section class="hero-section">
+        <h1>Tapitas con Causa</h1>
+        <p>Reciclaje social con alto valor humano</p>
+    </section>
+
+    <!-- CONTENEDOR SOBRE NOSOTROS -->
+    <main class="container">
+        <div class="main-block">
+            <span class="tag">¿Quiénes Somos?</span>
+            <h2>Transformando residuos en solidaridad</h2>
+            <p class="description-text">
+                El proyecto "Tapitas con Causa" surge como una respuesta activa ante la urgente problemática de la contaminación por residuos plásticos en nuestra comunidad y la constante necesidad de recursos económicos que enfrentan las fundaciones de apoyo social. La iniciativa consiste en implementar un sistema escolar de recolección y clasificación de tapitas plásticas para su posterior reciclaje, transformando un desecho común en fondos directos para causas solidarias. Con una inversión inicial mínima de $1,000.00 aportada por el equipo, optimizamos al máximo los recursos mediante contenedores elaborados con cajas de cartón reutilizadas, consolidándonos como un modelo de emprendimiento social autosustentable y eficiente.
+            </p>
+        </div>
+
+        <!-- DETALLE DEL TRIPLE IMPACTO -->
+        <div class="impact-grid">
+            <div class="impact-card card-ambient">
+                <h3>Impacto Ambiental</h3>
+                <p>Reduce de forma directa la acumulación de basura plástica y fomenta una cultura ecológica real y duradera dentro del plantel escolar.</p>
+            </div>
+            <div class="impact-card card-social">
+                <h3>Impacto Social</h3>
+                <p>Genera un vínculo directo de ayuda humanitaria real y empática hacia personas que se encuentran en situaciones altamente vulnerables.</p>
+            </div>
+            <div class="impact-card card-edu">
+                <h3>Impacto Educativo</h3>
+                <p>Promueve de forma activa la participación, el trabajo en equipo y una fuerte conciencia solidaria entre toda la comunidad estudiantil y local.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- SECCIÓN DE IDENTIDAD CORPORATIVA -->
+    <section class="identity-section">
+        <div class="identity-grid">
+            <!-- Misión -->
+            <div class="identity-box box-mision">
+                <h4>Misión</h4>
+                <p>Transformar residuos plásticos en recursos económicos para salvar vidas de niños con cáncer.</p>
+            </div>
+            <!-- Visión -->
+            <div class="identity-box box-vision">
+                <h4>Visión</h4>
+                <p>Ser el programa escolar líder en reciclaje social y ecológico de la región.</p>
+            </div>
+            <!-- Objetivos -->
+            <div class="identity-box box-objetivos">
+                <h4>Objetivos</h4>
+                <ul>
+                    <li>Apoyar económicamente a pacientes pediátricos vulnerables.</li>
+                    <li>Mitigar la contaminación plástica en la comunidad escolar.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <p>&copy; 2026 Tapitas con Causa — Pequeñas acciones, grandes milagros.</p>
+    </footer>
+
+</body>
+</html>
