@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tapitas con Causa | FODA</title>
+    <style>
+        /* ==========================================================================
+           VARIABLES Y CONFIGURACIÓN GLOBAL (Paleta Arcoíris Equilibrada)
+           ========================================================================== */
+        :root {
+            --rainbow-red: #ff5964;       /* Rojo - Amenazas */
+            --rainbow-orange: #f7a072;    /* Naranja - Oportunidades */
+            --rainbow-green: #38b000;     /* Verde - Fortalezas */
+            --rainbow-blue: #00b4d8;      /* Azul - Debilidades */
+            --pure-white: #ffffff;
+            --bg-light: #f8f9fa;          /* Fondo gris muy claro */
+            --text-dark: #212529;         /* Texto oscuro principal */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--pure-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 90px;
+        }
+
+        /* ==========================================================================
+           BARRA DE NAVEGACIÓN SUPERIOR (FIJA)
+           ========================================================================== */
+        .navbar {
+            width: 100%;
+            height: 90px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--pure-white);
+            border-bottom: 3px solid var(--bg-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--rainbow-red), var(--rainbow-orange), var(--rainbow-blue), var(--rainbow-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #6c757d;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        /* Colores individuales del arcoíris activos */
+        .nav-1:hover { color: var(--pure-white) !important; background-color: var(--rainbow-red); }
+        .nav-2:hover, .nav-2.active { color: var(--pure-white) !important; background-color: var(--rainbow-orange); }
+        .nav-3:hover { color: var(--pure-white) !important; background-color: var(--rainbow-green); }
+        .nav-4:hover { color: var(--pure-white) !important; background-color: var(--rainbow-blue); }
+
+        /* ==========================================================================
+           SECCIÓN HERO (ENCABEZADO DE FODA)
+           ========================================================================== */
+        .foda-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('banner.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 70px 20px;
+            text-align: center;
+            color: var(--pure-white);
+        }
+
+        .foda-hero h1 {
+            font-size: 3rem;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+        }
+
+        .foda-hero p {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--rainbow-orange);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           MATRIZ ANALÍTICA INTERACTIVA (ESTILO CUADRÍCULA)
+           ========================================================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .foda-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .foda-intro h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+        }
+
+        .foda-intro p {
+            font-size: 1.05rem;
+            color: #6e6158;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Cuadrícula organizada idéntica a tu gráfico original */
+        .foda-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 35px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .foda-grid { grid-template-columns: 1fr; }
+        }
+
+        .foda-card {
+            background-color: var(--pure-white);
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            border-top: 6px solid transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .foda-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Colores de bordes superiores por cuadrante */
+        .foda-f { border-top-color: var(--rainbow-green); }
+        .foda-d { border-top-color: var(--rainbow-blue); }
+        .foda-o { border-top-color: var(--rainbow-orange); }
+        .foda-a { border-top-color: var(--rainbow-red); }
+
+        /* Títulos de las tarjetas con letras gigantes */
+        .card-header-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 15px;
+        }
+
+        .letter-badge {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+        }
+
+        .foda-f .letter-badge { color: var(--rainbow-green); }
+        .foda-d .letter-badge { color: var(--rainbow-blue); }
+        .foda-o .letter-badge { color: var(--rainbow-orange); }
+        .foda-a .letter-badge { color: var(--rainbow-red); }
+
+        .card-header-area h3 {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            font-family: 'Georgia', serif;
+        }
+
+        /* Listas de puntos explicados */
+        .foda-list {
+            list-style: none;
+        }
+
+        .foda-list li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+            text-align: justify;
+            font-size: 0.98rem;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Viñetas personalizadas con los colores correspondientes */
+        .foda-list li::before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            top: -2px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .foda-f .foda-list li::before { color: var(--rainbow-green); }
+        .foda-d .foda-list li::before { color: var(--rainbow-blue); }
+        .foda-o .foda-list li::before { color: var(--rainbow-orange); }
+        .foda-a .foda-list li::before { color: var(--rainbow-red); }
+
+        .foda-list strong {
+            color: var(--text-dark);
+        }
+
+        /* ==========================================================================
+           SECCIÓN DE DESPLIEGUE PARA TU GRÁFICO (FOD.PNG)
+           ========================================================================== */
+        .chart-display-section {
+            background-color: var(--bg-light);
+            border-top: 1px solid #e2e8f0;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .chart-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: var(--pure-white);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .chart-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        .main-footer {
+            background-color: #212529;
+            color: var(--pure-white);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR (FIJA) -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-area">
+                🌈 Tapitas con Causa
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-1">Nosotros</a></li>
+                    <li><a href="foda.html" class="nav-2 active">FODA</a></li>
+                    <li><a href="donaciones.html" class="nav-3">Donaciones</a></li>
+                    <li><a href="organigrama.html" class="nav-4">Organigrama</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ENCABEZADO -->
+    <section class="foda-hero">
+        <h1>Análisis Estratégico</h1>
+        <p>Evaluación interna y externa de nuestro impacto</p>
+    </section>
+
+    <!-- MATRIZ DETALLADA TEXTUAL -->
+    <main class="container">
+        <div class="foda-intro">
+            <h2>Matriz de Diagnóstico</h2>
+            <p>Un desglose detallado de los factores clave que determinan la viabilidad, escalabilidad y retos logísticos de nuestra iniciativa social.</p>
+        </div>
+
+        <div class="foda-grid">
+            
+            <!-- CUADRANTE F: FORTALEZAS -->
+            <div class="foda-card foda-f">
+                <div class="chart-header-area">
+                    <span class="letter-badge">F</span>
+                    <h3>Fortalezas</h3>
+                </div>
+                <ul class="foda-list">
+                    <li><strong>Doble-Impacto:</strong> Abarca de manera simultánea el beneficio social (recursos médicos) y el beneficio ambiental (limpieza comunitaria).</li>
+                    <li><strong>Voluntariado:</strong> Cuenta con el respaldo de una comunidad estudiantil sumamente activa, participativa y consciente.</li>
+                    <li><strong>Bajo-Costo:</strong> Su operación económica requiere una inversión mínima, maximizando el uso de materiales de reúso.</li>
+                    <li><strong>Accesibilidad:</strong> La materia prima (tapitas plásticas) es abundante y de fácil recolección en los entornos cotidianos.</li>
+                </ul>
+            </div>
+
+            <!-- CUADRANTE D: DEBILIDADES -->
+            <div class="foda-card foda-d">
+                <div class="chart-header-area">
+                    <span class="letter-badge">D</span>
+                    <h3>Debilidades</h3>
+                </div>
+                <ul class="foda-list">
+                    <li><strong>Conciencia:</strong> Aprovecha el auge del cuidado ambiental, aunque requiere constante refuerzo educativo para evitar que disminuya.</li>
+                    <li><strong>Alianzas:</strong> Depende de la sinergia y convenios colaborativos estrechos con escuelas locales y comercios aliados.</li>
+                    <li><strong>Prestigio:</strong> Exige un alto nivel de vinculación transparente con fundaciones médicas reconocidas para mantener la confianza.</li>
+                    <li><strong>Expansión:</strong> Su crecimiento a largo plazo está sujeto a la capacidad de escalabilidad e integración a otros planteles.</li>
+                </ul>
+            </div>
+
+            <!-- CUADRANTE O: OPORTUNIDADES -->
+            <div class="foda-card foda-o">
+                <div class="chart-header-area">
+                    <span class="letter-badge">O</span>
+                    <h3>Oportunidades</h3>
+                </div>
+                <ul class="foda-list">
+                    <li><strong>Dependencia:</strong> Los resultados están directamente sujetos al nivel y constancia de la participación ciudadana activa.</li>
+                    <li><strong>Financiamiento:</strong> Se enfrenta a la falta de un fondo económico fijo inicial para infraestructura o transporte a gran escala.</li>
+                    <li><strong>Difusión:</strong> Cuenta actualmente con un limitado alcance de comunicación y concientización fuera del plantel escolar.</li>
+                </ul>
+            </div>
+
+            <!-- CUADRANTE A: AMENAZAS -->
+            <div class="foda-card foda-a">
+                <div class="chart-header-area">
+                    <span class="letter-badge">A</span>
+                    <h3>Amenazas</h3>
+                </div>
+                <ul class="foda-list">
+                    <li><strong>Apatía:</strong> Riesgo inherente de desinterés social o fatiga de la causa por parte de los donantes en el futuro.</li>
+                    <li><strong>Competencia:</strong> Coexistencia con otros programas de reciclaje comercial o iniciativas que desvíen la captación de tapitas.</li>
+                    <li><strong>Logística:</strong> Retos complejos relacionados con la transportación masiva del material y el espacio físico de almacenaje temporal.</li>
+                </ul>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SECCIÓN DE DESPLIEGUE DEL GRÁFICO (FOD.PNG) -->
+    <section class="chart-display-section">
+        <div class="foda-intro">
+            <h3>Gráfico de Matriz Original</h3>
+            <p style="margin-bottom: 20px;">Esquema visual estructurado de los factores de diagnóstico estratégico.</p>
+        </div>
+        <div class="chart-wrapper">
+            <!-- Cargamos tu gráfico bajo el nombre que indicaste -->
+            <img src="fod.png" alt="Esquema Gráfico FODA - Tapitas con Causa">
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <p>&copy; 2026 Tapitas con Causa — Pequeñas acciones, grandes milagros.</p>
+    </footer>
+
+</body>
+</html>
