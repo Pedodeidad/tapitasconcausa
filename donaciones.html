@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tapitas con Causa | Donaciones</title>
+    <style>
+        /* ==========================================================================
+           VARIABLES Y CONFIGURACIÓN GLOBAL (Paleta Arcoíris Equilibrada)
+           ========================================================================== */
+        :root {
+            --rainbow-red: #ff5964;       /* Rojo */
+            --rainbow-orange: #f7a072;    /* Naranja */
+            --rainbow-yellow: #e9c46a;    /* Amarillo */
+            --rainbow-green: #38b000;     /* Verde */
+            --rainbow-blue: #00b4d8;      /* Azul */
+            --rainbow-purple: #7209b7;    /* Morado */
+            --pure-white: #ffffff;
+            --bg-light: #f8f9fa;
+            --text-dark: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--pure-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 90px;
+        }
+
+        /* ==========================================================================
+           BARRA DE NAVEGACIÓN SUPERIOR (FIJA)
+           ========================================================================== */
+        .navbar {
+            width: 100%;
+            height: 90px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--pure-white);
+            border-bottom: 3px solid var(--bg-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--rainbow-red), var(--rainbow-orange), var(--rainbow-blue), var(--rainbow-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #6c757d;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        /* Colores individuales del arcoíris activos */
+        .nav-1:hover { color: var(--pure-white) !important; background-color: var(--rainbow-red); }
+        .nav-2:hover { color: var(--pure-white) !important; background-color: var(--rainbow-orange); }
+        .nav-3:hover, .nav-3.active { color: var(--pure-white) !important; background-color: var(--rainbow-green); }
+        .nav-4:hover { color: var(--pure-white) !important; background-color: var(--rainbow-blue); }
+
+        /* ==========================================================================
+           SECCIÓN HERO (ENCABEZADO DE DONACIONES)
+           ========================================================================== */
+        .donate-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), url('banner.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 70px 20px;
+            text-align: center;
+            color: var(--pure-white);
+        }
+
+        .donate-hero h1 {
+            font-size: 3rem;
+            letter-spacing: 1px;
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+        }
+
+        .donate-hero p {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--rainbow-orange);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           CONTENEDOR PRINCIPAL - PROCESO PASO A PASO
+           ========================================================================== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-intro h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            font-family: 'Georgia', serif;
+            margin-bottom: 15px;
+        }
+
+        .section-intro p {
+            font-size: 1.1rem;
+            color: #495057;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Línea de tiempo / Pasos de recolección */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .step-card {
+            background-color: var(--pure-white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            text-align: center;
+            border-bottom: 4px solid transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-1 { border-bottom-color: var(--rainbow-red); }
+        .step-2 { border-bottom-color: var(--rainbow-orange); }
+        .step-3 { border-bottom-color: var(--rainbow-green); }
+        .step-4 { border-bottom-color: var(--rainbow-purple); }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            color: var(--pure-white);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin: 0 auto 20px auto;
+        }
+
+        .step-1 .step-number { background-color: var(--rainbow-red); }
+        .step-2 .step-number { background-color: var(--rainbow-orange); }
+        .step-3 .step-number { background-color: var(--rainbow-green); }
+        .step-4 .step-number { background-color: var(--rainbow-purple); }
+
+        .step-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: 'Georgia', serif;
+        }
+
+        .step-card p {
+            font-size: 0.95rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* ==========================================================================
+           SECCIÓN ¿QUÉ SE HACE CON EL MATERIAL? (MODELO MATEMÁTICO)
+           ========================================================================== */
+        .destination-section {
+            background-color: var(--bg-light);
+            padding: 60px 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .destination-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            align-items: center;
+        }
+
+        .destination-text h3 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            font-family: 'Georgia', serif;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--rainbow-blue);
+            padding-left: 15px;
+        }
+
+        .destination-text p {
+            font-size: 1.05rem;
+            color: #495057;
+            text-align: justify;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        /* Tarjeta del Modelo de Peso */
+        .math-box {
+            background: var(--pure-white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            border: 1px solid #e9ecef;
+            text-align: center;
+        }
+
+        .math-box h4 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            color: var(--rainbow-purple);
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .formula {
+            background: #f1f3f5;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #2b2d42;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .math-box ul {
+            text-align: left;
+            list-style: none;
+            font-size: 0.95rem;
+            color: #495057;
+        }
+
+        .math-box li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .math-box li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: var(--rainbow-green);
+            font-weight: bold;
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        .main-footer {
+            background-color: #212529;
+            color: var(--pure-white);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN SUPERIOR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-area">
+                🌈 Tapitas con Causa
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-1">Nosotros</a></li>
+                    <li><a href="foda.html" class="nav-2">FODA</a></li>
+                    <li><a href="donaciones.html" class="nav-3 active">Donaciones</a></li>
+                    <li><a href="organigrama.html" class="nav-4">Organigrama</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ENCABEZADO -->
+    <section class="donate-hero">
+        <h1>Centro de Recolección</h1>
+        <p>Tu desecho plástico se transforma en esperanza</p>
+    </section>
+
+    <!-- PROCESO DE DONACIÓN -->
+    <main class="container">
+        <div class="section-intro">
+            <h2>¿Cómo puedes sumarte a la causa?</h2>
+            <p>Participar es sumamente sencillo. El proceso escolar está diseñado para optimizar materiales y asegurar que cada tapita cuente.</p>
+        </div>
+
+        <div class="steps-grid">
+            <!-- Paso 1 -->
+            <div class="step-card step-1">
+                <div class="step-number">1</div>
+                <h3>Recolecta</h3>
+                <p>Guarda todas las tapitas plásticas de botellas de agua, refrescos, jugos o productos de limpieza que consumas en tu hogar o comunidad.</p>
+            </div>
+
+            <!-- Paso 2 -->
+            <div class="step-card step-2">
+                <h3>Clasifica</h3>
+                <p>Asegúrate de que las tapitas estén completamente limpias, secas y libres de cualquier residuo orgánico o materiales metálicos adheridos.</p>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="step-card step-3">
+                <div class="step-number">3</div>
+                <h3>Ubica la Jirafa</h3>
+                <p>Lleva tus tapitas al plantel y deposítalas en los contenedores especiales reutilizables diseñados artísticamente en forma de jirafa.</p>
+            </div>
+
+            <!-- Paso 4 -->
+            <div class="step-card step-4">
+                <div class="step-number">4</div>
+                <h3>Apoya</h3>
+                <p>¡Listo! El equipo procesará el material para enviarlo de manera transparente a las recicladoras y fundaciones correspondientes.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- DESTINO Y MODELADO MATEMÁTICO -->
+    <section class="destination-section">
+        <div class="destination-container">
+            
+            <div class="destination-text">
+                <h3>¿Qué se hace con las tapitas?</h3>
+                <p>
+                    Una vez que nuestros contenedores de jirafa se encuentran llenos, el material es pesado, compactado y trasladado hacia plantas recicladoras aliadas estratégicas. Estas empresas compran el plástico por tonelaje para reintroducirlo en ciclos de manufactura ecológica.
+                </p>
+                <p>
+                    El 100% de los fondos económicos generados por la venta del plástico reciclado es destinado de forma directa a fundaciones de apoyo social especializadas, cubriendo tratamientos de quimioterapia, medicamentos y viáticos para pacientes pediátricos en situaciones altamente vulnerables.
+                </p>
+            </div>
+
+            <!-- Caja de Análisis de Peso -->
+            <div class="math-box">
+                <h4>Monitoreo del Impacto</h4>
+                <div class="formula">Impacto = Peso (kg) × Tarifa Reciclaje</div>
+                <ul>
+                    <li><strong>Métricas de Control:</strong> Nuestro modelo estratégico evalúa de manera estricta el peso total en kilogramos de plástico recolectado dentro de la escuela.</li>
+                    <li><strong>Alianzas de Valor:</strong> El peso acumulado se multiplica por los tabuladores de las recicladoras para generar los fondos directos de ayuda humanitaria.</li>
+                    <li><strong>Transparencia:</strong> Cada kilogramo de tapita representa un avance directo en el financiamiento de los tratamientos médicos.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="main-footer">
+        <p>&copy; 2026 Tapitas con Causa — Pequeñas acciones, grandes milagros.</p>
+    </footer>
+
+</body>
+</html>
